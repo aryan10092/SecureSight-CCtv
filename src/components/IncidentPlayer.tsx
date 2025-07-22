@@ -1,5 +1,5 @@
 import React from 'react';
-import { Play, Pause, SkipBack, SkipForward, Volume2, Maximize } from 'lucide-react';
+import { Play, SkipBack, SkipForward, Volume2, Maximize } from 'lucide-react';
 import { Incident } from '@/lib/types';
 import { formatTime, formatDate } from '@/lib/utils';
 

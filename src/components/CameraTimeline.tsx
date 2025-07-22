@@ -100,7 +100,7 @@ export default function CameraTimeline({
     }
     acc[cameraId].incidents.push(incident);
     return acc;
-  }, {} as Record<string, { camera: any; incidents: Incident[] }>);
+  }, {} as Record<string, { camera: typeof incidents[0]['camera']; incidents: Incident[] }>);
 
   
   const getIncidentColor = (type: string) => {
@@ -192,7 +192,7 @@ export default function CameraTimeline({
 
           {/* Camera rows */}
           <div className="space-y-3">
-            {Object.entries(incidentsByCamera).map(([cameraId, { camera, incidents: cameraIncidents }], cameraIndex) => (
+            {Object.entries(incidentsByCamera).map(([cameraId, { incidents: cameraIncidents }], cameraIndex) => (
               <div key={cameraId} className="flex items-center">
                 {/* Camera name */}
                 <div className="w-24 text-white text-sm font-mono flex items-center">
@@ -203,7 +203,7 @@ export default function CameraTimeline({
                 {/* Timeline bar */}
                 <div className="flex-1 relative h-8 bg-gray-900 rounded border border-gray-700">
                   {/* Incident markers for this camera */}
-                  {cameraIncidents.map((incident, eventIndex) => {
+                  {cameraIncidents.map((incident) => {
                     const position = timeToPosition(incident.tsStart);
                     const isSelected = selectedIncident?.id === incident.id;
                     

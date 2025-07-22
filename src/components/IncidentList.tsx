@@ -1,5 +1,4 @@
 import React from 'react';
-import { AlertTriangle, Eye, Flame, ShoppingBag, Users, Settings } from 'lucide-react';
 import { Incident } from '@/lib/types';
 import { formatTime, formatDate, cn } from '@/lib/utils';
 

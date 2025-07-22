@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Navbar from './Navbar';
 import IncidentPlayer from './IncidentPlayer';
 import IncidentList from './IncidentList';
@@ -16,13 +16,7 @@ export default function Dashboard() {
   const [showResolved, setShowResolved] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
 
- 
-  useEffect(() => {
-    fetchIncidents();
-    fetchResolvedIncidents();
-  }, []);
-
-  const fetchIncidents = async () => {
+  const fetchIncidents = useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch('/api/incidents?resolved=false')
@@ -30,7 +24,16 @@ export default function Dashboard() {
       if (response.ok) {
         const data = await response.json();
         // Convert date strings to Date objects
-        const incidentsWithDates = data.map((incident: any) => ({
+        const incidentsWithDates = data.map((incident: Omit<Incident, 'tsStart' | 'tsEnd' | 'createdAt' | 'updatedAt'> & {
+          tsStart: string;
+          tsEnd: string;
+          createdAt: string;
+          updatedAt: string;
+          camera: Omit<Incident['camera'], 'createdAt' | 'updatedAt'> & {
+            createdAt: string;
+            updatedAt: string;
+          };
+        }) => ({
           ...incident,
           tsStart: new Date(incident.tsStart),
           tsEnd: new Date(incident.tsEnd),
@@ -53,16 +56,25 @@ export default function Dashboard() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [showResolved]);
 
-  const fetchResolvedIncidents = async () => {
+  const fetchResolvedIncidents = useCallback(async () => {
     try {
       const response = await fetch('/api/incidents?resolved=true')
 
       if (response.ok) {
         const data = await response.json();
         // Convert date strings to Date objects
-        const incidentsWithDates = data.map((incident: any) => ({
+        const incidentsWithDates = data.map((incident: Omit<Incident, 'tsStart' | 'tsEnd' | 'createdAt' | 'updatedAt'> & {
+          tsStart: string;
+          tsEnd: string;
+          createdAt: string;
+          updatedAt: string;
+          camera: Omit<Incident['camera'], 'createdAt' | 'updatedAt'> & {
+            createdAt: string;
+            updatedAt: string;
+          };
+        }) => ({
           ...incident,
           tsStart: new Date(incident.tsStart),
           tsEnd: new Date(incident.tsEnd),
@@ -79,7 +91,12 @@ export default function Dashboard() {
     } catch (error) {
       console.error('Error fetching resolved incidents:', error);
     }
-  }
+  }, []);
+
+  useEffect(() => {
+    fetchIncidents();
+    fetchResolvedIncidents();
+  }, [fetchIncidents, fetchResolvedIncidents]);
 
   const handleResolveIncident = async (incidentId: string) => {
     try {

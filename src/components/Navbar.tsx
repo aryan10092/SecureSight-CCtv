@@ -1,12 +1,12 @@
 import React from 'react';
-import { Home, Camera, Film, AlertTriangle, Users, User, Cctv } from 'lucide-react';
+import { Home, Film, AlertTriangle, User, Cctv } from 'lucide-react';
 
 export default function Navbar() {
   const navItems = [
     { name: 'Dashboard', icon: <Home />,
        href: '/', 
       active: true },
-      
+
     { name: 'Cameras', icon: <Cctv />, href: '/' },
 
     { name: 'Scenes', icon: <Film />, href: '/' },
