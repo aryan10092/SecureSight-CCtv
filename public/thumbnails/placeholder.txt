@@ -1,0 +1,20 @@
+# Placeholder Thumbnails Directory
+
+This directory contains placeholder thumbnail images for the SecureSight CCTV incidents.
+In a real implementation, these would be actual JPEG/PNG images captured from CCTV feeds.
+
+Placeholder image URLs used in seed data:
+- /thumbnails/incident1.jpg
+- /thumbnails/incident2.jpg
+- /thumbnails/incident3.jpg
+- /thumbnails/incident4.jpg
+- /thumbnails/incident5.jpg
+- /thumbnails/incident6.jpg
+- /thumbnails/incident7.jpg
+- /thumbnails/incident8.jpg
+- /thumbnails/incident9.jpg
+- /thumbnails/incident10.jpg
+- /thumbnails/incident11.jpg
+- /thumbnails/incident12.jpg
+
+These would be replaced with actual CCTV snapshot images in production.
